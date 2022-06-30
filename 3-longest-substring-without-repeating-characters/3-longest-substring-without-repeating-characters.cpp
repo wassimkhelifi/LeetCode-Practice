@@ -15,7 +15,7 @@ public:
                 }
                 
                 longestSubstring.pop();
-                visited.erase(letter);
+                // visited.erase(letter);
             }
             
             longestSubstring.push(letter);
