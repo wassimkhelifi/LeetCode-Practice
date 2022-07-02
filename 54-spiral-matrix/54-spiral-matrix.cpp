@@ -24,12 +24,10 @@ public:
                 matrix.pop_back();
             }
             
-            if (!matrix.empty()) {
-                for (int i = 0; i < matrix.size(); i++) {
-                    if (matrix[i].empty()) {
-                        matrix.erase(matrix.begin() + i);
-                        i--;
-                    }
+            for (int i = 0; i < matrix.size(); i++) {
+                if (matrix[i].empty()) {
+                    matrix.erase(matrix.begin() + i);
+                    i--;
                 }
             }
             
