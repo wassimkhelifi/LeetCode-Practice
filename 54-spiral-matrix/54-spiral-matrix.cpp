@@ -31,12 +31,10 @@ public:
                 }
             }
             
-            if (!matrix.empty()) {
-                for (int i = matrix.size() - 1; i >= 0; i--) {
-                    vector<int>& row = matrix[i];
-                    spiral.push_back(row.front());
-                    row.erase(row.begin());
-                }
+            for (int i = matrix.size() - 1; i >= 0; i--) {
+                vector<int>& row = matrix[i];
+                spiral.push_back(row.front());
+                row.erase(row.begin());
             }
             
             if (!matrix.empty()) {
