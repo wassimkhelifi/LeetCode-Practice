@@ -37,12 +37,10 @@ public:
                 row.erase(row.begin());
             }
             
-            if (!matrix.empty()) {
-                for (int i = 0; i < matrix.size(); i++) {
-                    if (matrix[i].empty()) {
-                        matrix.erase(matrix.begin() + i);
-                        i--;
-                    }
+            for (int i = 0; i < matrix.size(); i++) {
+                if (matrix[i].empty()) {
+                    matrix.erase(matrix.begin() + i);
+                    i--;
                 }
             }
         }
