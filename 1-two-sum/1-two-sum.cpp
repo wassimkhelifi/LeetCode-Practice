@@ -6,14 +6,17 @@ public:
             complementToIndex[target - nums[i]] = i;
         }
         
-        vector<int> indices;
+        vector<int> result;
         for (int i = 0; i < nums.size(); i++) {
-            if (complementToIndex.count(nums[i]) && i != complementToIndex[nums[i]]) {
-                indices = {i, complementToIndex[nums[i]]};
-                break;
+            if (complementToIndex.count(nums[i])) {
+                int index = complementToIndex[nums[i]];
+                if (index != i) {
+                    result = {i, index};
+                    break;
+                }
             }
         }
         
-        return indices;
+        return result;
     }
 };
