@@ -1,36 +1,28 @@
 class MinStack {
-    vector<int> numbers;
-    int min = INT_MAX;
+    stack<int> numberStack;
+    stack<int> minValueStack;
 public:
     MinStack() {}
     
     void push(int val) {
-        numbers.push_back(val);
-        if (val < min) {
-            min = val;
+        numberStack.push(val);
+        if (!minValueStack.empty()) {
+            val = min(val, minValueStack.top());
         }
+        minValueStack.push(val);
     }
     
     void pop() {
-        numbers.pop_back();
-        update();
+        numberStack.pop();
+        minValueStack.pop();
     }
     
     int top() {
-        return numbers.back();
+        return numberStack.top();
     }
     
     int getMin() {
-        return min;
-    }
-    
-    void update() {
-        min = INT_MAX;
-        for (auto& number : numbers) {
-            if (number < min) {
-                min = number;
-            }
-        }
+        return minValueStack.top();
     }
 };
 
