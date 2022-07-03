@@ -4,8 +4,8 @@ public:
         int currentSum = nums.front();
         int maxSum = nums.front();
         nums.erase(nums.begin());
-        for (auto& num : nums) {
-            currentSum = max(currentSum + num, num);
+        for (auto& number : nums) {
+            currentSum = max(currentSum + number, number);
             maxSum = max(maxSum, currentSum);
         }
         
