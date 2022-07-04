@@ -1,13 +1,13 @@
 class UnionFind {
-    int groups;
     vector<int> parent;
     vector<int> rank;
+    int groups;
     
 public:
-    UnionFind(int size) {
-        groups = size;
-        parent = vector<int>(size);
-        rank = vector<int>(size);
+    UnionFind(int groups) {
+        this -> groups = groups;
+        parent = vector<int>(groups);
+        rank = vector<int>(groups);
     }
     
     void initialize(int x) {
@@ -18,15 +18,17 @@ public:
         if (parent[x] != x) {
             return find(parent[x]);
         }
-        
         return parent[x];
     }
     
     void unify(int x, int y) {
         int xGroup = find(x);
         int yGroup = find(y);
+        
         if (xGroup == yGroup) return;
+        
         groups--;
+        
         if (rank[xGroup] < rank[yGroup]) {
             parent[xGroup] = yGroup;
         } else if (rank[yGroup] < rank[xGroup]) {
@@ -43,29 +45,29 @@ public:
     vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
         UnionFind unions(accounts.size());
         
-        map<string, int> emailToUnion;
+        map<string, int> emailToAccountIndex;
         for (int i = 0; i < accounts.size(); i++) {
-            vector<string>& account = accounts[i];
             unions.initialize(i);
+            vector<string>& account = accounts[i];
             for (int j = 1; j < account.size(); j++) {
                 string& email = account[j];
-                if (!emailToUnion.count(email)) {
-                    emailToUnion[email] = i;
+                if (!emailToAccountIndex.count(email)) {
+                    emailToAccountIndex[email] = i;
                 } else {
-                    unions.unify(emailToUnion[email], i);
+                    unions.unify(emailToAccountIndex[email], i);
                 }
             }
         }
         
         map<int, vector<string>> unionToEmails;
-        for (auto& entry : emailToUnion) {
+        for (auto& entry : emailToAccountIndex) {
             unionToEmails[unions.find(entry.second)].push_back(entry.first);
         }
         
         vector<vector<string>> mergedAccounts;
         for (auto& entry : unionToEmails) {
             vector<string>& emails = entry.second;
-            emails.insert(emails.begin(), accounts[entry.first][0]);
+            emails.insert(emails.begin(), accounts[entry.first].front());
             mergedAccounts.push_back(emails);
         }
         
