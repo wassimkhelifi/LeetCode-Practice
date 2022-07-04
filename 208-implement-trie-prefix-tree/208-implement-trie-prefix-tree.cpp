@@ -1,6 +1,6 @@
 class Trie {
-    bool isLeaf = false;
     vector<Trie*> leaves = vector<Trie*>(26, NULL);
+    bool isLeaf = false;
 public:
     Trie() {}
     
@@ -21,7 +21,9 @@ public:
         Trie* current = this;
         for (auto& letter : word) {
             int letterIndex = (int)letter - 97;
-            if (!(current -> leaves[letterIndex])) return false;
+            if (!(current -> leaves[letterIndex])) {
+                return false;
+            }
             current = current -> leaves[letterIndex];
         }
         
@@ -32,7 +34,9 @@ public:
         Trie* current = this;
         for (auto& letter : prefix) {
             int letterIndex = (int)letter - 97;
-            if (!(current -> leaves[letterIndex])) return false;
+            if (!(current -> leaves[letterIndex])) {
+                return false;
+            }
             current = current -> leaves[letterIndex];
         }
         
