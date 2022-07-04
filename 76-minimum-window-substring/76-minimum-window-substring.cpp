@@ -2,30 +2,39 @@ class Solution {
 public:
     string minWindow(string s, string t) {
         map<char, int> tmap;
-        for (auto& letter : t) tmap[letter]++;
+        for (auto& character : t) {
+            tmap[character]++;
+        }
         
         map<char, int> smap;
-        pair<int, int> substringIndices = {-1, -1};
-        int substringLength = INT_MAX;
-        int requiredLettersCount = tmap.size();
-        int validLettersCount = 0;
+        pair<int, int> minWindowIndices = {-1, -1};
+        int minWindowLength = INT_MAX;
+        int requiredLetters = tmap.size();
+        int validLetters = 0;
         
         int left = 0;
         for (int right = 0; right < s.size(); right++) {
             smap[s[right]]++;
-            if (smap[s[right]] == tmap[s[right]]) validLettersCount++;
-            while (validLettersCount == requiredLettersCount) {
-                if (right - left + 1 < substringLength) {
-                    substringLength = right - left + 1;
-                    substringIndices = {left, right};
+            if (smap[s[right]] == tmap[s[right]]) {
+                validLetters++;
+            }
+            while (validLetters == requiredLetters) {
+                if (right - left + 1 < minWindowLength) {
+                    minWindowLength = right - left + 1;
+                    minWindowIndices = {left, right};
                 }
                 smap[s[left]]--;
-                if (tmap[s[left]] > smap[s[left]]) validLettersCount--;
+                if (smap[s[left]] < tmap[s[left]]) {
+                    validLetters--;
+                }
                 left++;
             }
         }
         
-        if (substringLength == INT_MAX) return "";
-        else return s.substr(substringIndices.first, substringLength);
+        if (minWindowLength == INT_MAX) {
+            return "";
+        } else {
+            return s.substr(minWindowIndices.first, minWindowLength);
+        }
     }
 };
