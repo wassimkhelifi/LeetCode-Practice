@@ -8,18 +8,24 @@ public:
             smap[s[i]]++;
         }
         
-        vector<int> indices;
-        if (smap == pmap) indices.push_back(0);
+        vector<int> anagramIndices;
+        if (smap == pmap) {
+            anagramIndices.push_back(0);
+        }
         
         int left = 0;
         for (int right = p.size(); right < s.size(); right++) {
             smap[s[left]]--;
-            if (!smap[s[left]]) smap.erase(s[left]);
+            if (!smap[s[left]]) {
+                smap.erase(s[left]);
+            }
             left++;
             smap[s[right]]++;
-            if (smap == pmap) indices.push_back(left);
+            if (smap == pmap) {
+                anagramIndices.push_back(left);
+            }
         }
         
-        return indices;
+        return anagramIndices;
     }
 };
