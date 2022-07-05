@@ -1,22 +1,25 @@
 class Solution {
 public:
     bool isValid(string s) {
-        if (s.front() == ')' || s.front() == '}' || s.front() == ']') return false;
+        if (s.front() == ')' || s.front() == '}' || s.front() == ']') {
+            return false;
+        }
         
-        stack<char> mystack;
+        stack<char> openBrackets;
         for (auto& bracket : s) {
             if (bracket == ')' || bracket == '}' || bracket == ']') {
-                if (mystack.empty()) return false;
-                char topBracket = mystack.top();
-                mystack.pop();
-                if ((topBracket == '(' && bracket != ')') || (topBracket == '{' && bracket != '}') || (topBracket == '[' && bracket != ']')) {
+                if (openBrackets.empty()) {
+                    return false;
+                }
+                char openBracket = openBrackets.top(); openBrackets.pop();
+                if ((openBracket == '(' && bracket != ')') || (openBracket == '{' && bracket != '}') || (openBracket == '[' && bracket != ']')) {
                     return false;
                 }
             } else {
-                mystack.push(bracket);
+                openBrackets.push(bracket);
             }
         }
         
-        return mystack.empty();
+        return openBrackets.empty();
     }
 };
