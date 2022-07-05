@@ -3,25 +3,24 @@ public:
     int largestRectangleArea(vector<int>& heights) {
         int maxArea = 0;
         int size = heights.size();
-        stack<pair<int, int>> indexHeights;
+        stack<pair<int, int>> startingIndexHeights;
         for (int i = 0; i < size; i++) {
             int currentHeight = heights[i];
             int startingIndex = i;
-            while (!indexHeights.empty() && indexHeights.top().second > currentHeight) {
-                int index = indexHeights.top().first;
-                int height = indexHeights.top().second;
-                indexHeights.pop();
+            while (!startingIndexHeights.empty() && startingIndexHeights.top().second > currentHeight) {
+                int index = startingIndexHeights.top().first;
+                int height = startingIndexHeights.top().second;
+                startingIndexHeights.pop();
                 maxArea = max(maxArea, height * (i - index));
                 startingIndex = index;
             }
-            
-            indexHeights.push(make_pair(startingIndex, currentHeight));
+            startingIndexHeights.push(make_pair(startingIndex, currentHeight));
         }
         
-        while (!indexHeights.empty()) {
-            int index = indexHeights.top().first;
-            int height = indexHeights.top().second;
-            indexHeights.pop();
+        while (!startingIndexHeights.empty()) {
+            int index = startingIndexHeights.top().first;
+            int height = startingIndexHeights.top().second;
+            startingIndexHeights.pop();
             maxArea = max(maxArea, height * (size - index));
         }
         
