@@ -9,14 +9,18 @@ public:
     }
     
     int pop() {
-        if (outStack.empty()) fillOutStack();
+        if (outStack.empty()) {
+            fill();
+        }
         int result = outStack.top();
         outStack.pop();
         return result;
     }
     
     int peek() {
-        if (outStack.empty()) fillOutStack();
+        if (outStack.empty()) {
+            fill();
+        }
         return outStack.top();
     }
     
@@ -24,7 +28,7 @@ public:
         return outStack.empty() && inStack.empty();
     }
     
-    void fillOutStack() {
+    void fill() {
         while (!inStack.empty()) {
             outStack.push(inStack.top());
             inStack.pop();
