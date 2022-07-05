@@ -6,16 +6,15 @@ public:
         return allPermutations;
     }
     
-    void obtainPermutations(vector<int>& currentPermutation, int left, int right, vector<vector<int>>& allPermutations) {
+    void obtainPermutations(vector<int>& nums, int left, int right, vector<vector<int>>& allPermutations) {
         if (left == right) {
-            allPermutations.push_back(currentPermutation);
+            allPermutations.push_back(nums);
             return;
         }
-        
         for (int i = left; i <= right; i++) {
-            swap(currentPermutation[i], currentPermutation[left]);
-            obtainPermutations(currentPermutation, left + 1, right, allPermutations);
-            swap(currentPermutation[i], currentPermutation[left]);
+            swap(nums[i], nums[left]);
+            obtainPermutations(nums, left + 1, right, allPermutations);
+            swap(nums[i], nums[left]);
         }
     }
 };
