@@ -1,6 +1,8 @@
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
+        if (not amount) return 0;
+        
         vector<int> memo(amount + 1, amount + 1);
         memo[0] = 0;
         
@@ -12,7 +14,10 @@ public:
             }
         }
         
-        if (memo[amount] == amount + 1) return -1;
-        else return memo[amount];
+        if (memo[amount] == amount + 1) {
+            return -1;
+        } else {
+            return memo[amount];
+        }
     }
 };
