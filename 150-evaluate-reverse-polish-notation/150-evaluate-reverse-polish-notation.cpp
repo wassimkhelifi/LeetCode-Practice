@@ -4,9 +4,9 @@ public:
         stack<int> numbers;
         for (auto& token : tokens) {
             if (token.size() == 1 && !isdigit(token.front())) {
-                int secondNumber = numbers.top(); numbers.pop();
-                int firstNumber = numbers.top(); numbers.pop();
-                numbers.push(calculate(firstNumber, secondNumber, token));
+                int numberTwo = numbers.top(); numbers.pop();
+                int numberOne = numbers.top(); numbers.pop();
+                numbers.push(calculate(numberOne, numberTwo, token));
             } else {
                 numbers.push(stoi(token));
             }
@@ -15,10 +15,15 @@ public:
         return numbers.top();
     }
     
-    int calculate(int firstNumber, int secondNumber, string operand) {
-        if (operand == "+") return firstNumber + secondNumber;
-        else if (operand == "-") return firstNumber - secondNumber;
-        else if (operand == "*") return firstNumber * secondNumber;
-        else return firstNumber / secondNumber;
+    int calculate(int numberOne, int numberTwo, string operand) {
+        if (operand == "+") {
+            return numberOne + numberTwo;
+        } else if (operand == "-") {
+            return numberOne - numberTwo;
+        } else if (operand == "*") {
+            return numberOne * numberTwo;
+        } else {
+            return numberOne / numberTwo;
+        }
     }
 };
