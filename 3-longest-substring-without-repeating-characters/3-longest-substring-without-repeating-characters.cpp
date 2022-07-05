@@ -1,26 +1,28 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        if (s.empty()) return 0;
-        if (s.size() == 1) return 1;
+        int size = s.size();
         
-        int length = 0;
+        if (size == 0) return 0;
+        if (size == 1) return 1;
+        
+        int longestLength = 0;
+        unordered_set<char> seen;
         queue<char> longestSubstring;
-        unordered_set<char> visited;
         for (auto& letter : s) {
-            if (visited.count(letter)) {
+            if (seen.count(letter)) {
                 while (longestSubstring.front() != letter) {
-                    visited.erase(longestSubstring.front());
+                    seen.erase(longestSubstring.front());
                     longestSubstring.pop();
                 }
                 longestSubstring.pop();
             }
             
             longestSubstring.push(letter);
-            visited.insert(letter);
-            length = max(length, (int)longestSubstring.size());
+            seen.insert(letter);
+            longestLength = max(longestLength, (int)longestSubstring.size());
         }
         
-        return length;
+        return longestLength;
     }
 };
