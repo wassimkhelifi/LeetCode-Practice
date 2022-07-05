@@ -7,7 +7,9 @@ public:
             if (!isalnum(s[i])) {
                 s.erase(s.begin() + i);
                 i--;
-            } else s[i] = tolower(s[i]);
+            } else {
+                s[i] = tolower(s[i]);
+            }
         }
         
         int left = 0;
