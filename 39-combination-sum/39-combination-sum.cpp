@@ -3,23 +3,22 @@ public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>> allCombinations;
         vector<int> currentCombination;
-        obtainCombinations(candidates, currentCombination, 0, target, allCombinations);
+        obtainCombinations(candidates, 0, target, currentCombination, allCombinations);
         return allCombinations;
     }
     
-    void obtainCombinations(vector<int>& candidates, vector<int>& currentCombination, int index, int target, vector<vector<int>>& combinations) {
+    void obtainCombinations(vector<int>& candidates, int index, int target, vector<int>& currentCombination, vector<vector<int>>& allCombinations) {
         if (target == 0) {
-            combinations.push_back(currentCombination);
+            allCombinations.push_back(currentCombination);
             return;
         }
-        if (index >= candidates.size() || target < 0) {
+        if (target < 0 or index >= candidates.size()) {
             return;
         }
         
-        obtainCombinations(candidates, currentCombination, index + 1, target, combinations);
-        
+        obtainCombinations(candidates, index + 1, target, currentCombination, allCombinations);
         currentCombination.push_back(candidates[index]);
-        obtainCombinations(candidates, currentCombination, index, target - candidates[index], combinations);
+        obtainCombinations(candidates, index, target - candidates[index], currentCombination, allCombinations);
         currentCombination.pop_back();
     }
 };
