@@ -10,34 +10,51 @@
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if (!root) return NULL;
+        if (not root) return NULL;
         
-        bool existsInSubtree = false;
-        bool existsInLeftSubtree = false;
-        bool existsInRightSubtree = false;
+        bool subtreeContainsNode = false;
+        bool leftSubtreeContainsNode = false;
+        bool rightSubtreeContainsNode = false;
         
-        if (root == p) traverseOne(root, q, existsInSubtree);
-        else if (root == q) traverseOne(root, p, existsInSubtree);
-        if (existsInSubtree) return root;
+        if (root == p) {
+            traverseOne(root, p, subtreeContainsNode);
+        } else if (root == q) {
+            traverseOne(root, q, subtreeContainsNode);
+        }
+        if (subtreeContainsNode) {
+            return root;
+        }
         
-        traverseTwo(root -> left, p, q, existsInLeftSubtree);
-        traverseTwo(root -> right, p, q, existsInRightSubtree);
+        traverseTwo(root -> left, p, q, leftSubtreeContainsNode);
+        traverseTwo(root -> right, p, q, rightSubtreeContainsNode);
         
-        if (existsInLeftSubtree && !existsInRightSubtree) return lowestCommonAncestor(root -> left, p, q);
-        else if (!existsInLeftSubtree && existsInRightSubtree) return lowestCommonAncestor(root -> right, p, q);
-        else return root;
+        if (leftSubtreeContainsNode and not rightSubtreeContainsNode) {
+            return lowestCommonAncestor(root -> left, p, q);
+        } else if (not leftSubtreeContainsNode and rightSubtreeContainsNode) {
+            return lowestCommonAncestor(root -> right, p, q);
+        } else {
+            return root;
+        }
     }
     
     void traverseOne(TreeNode* node, TreeNode* target, bool& exists) {
-        if (!node) return;
-        if (node == target) exists = true;
+        if (not node) return;
+        
+        if (node == target) {
+            exists = true;
+        }
+        
         traverseOne(node -> left, target, exists);
         traverseOne(node -> right, target, exists);
     }
     
     void traverseTwo(TreeNode* node, TreeNode* targetOne, TreeNode* targetTwo, bool& exists) {
-        if (!node) return;
-        if (node == targetOne || node == targetTwo) exists = true;
+        if (not node) return;
+        
+        if (node == targetOne or node == targetTwo) {
+            exists = true;
+        }
+        
         traverseTwo(node -> left, targetOne, targetTwo, exists);
         traverseTwo(node -> right, targetOne, targetTwo, exists);
     }
