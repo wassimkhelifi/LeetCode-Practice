@@ -9,9 +9,9 @@ public:
         int index = 0;
         for (auto& interval : intervals) {
             vector<int>& mergedInterval = mergedIntervals[index];
-            if (interval.front() <= mergedInterval.back() && interval.back() >= mergedInterval.back()) {
+            if (interval.front() <= mergedInterval.back() and interval.back() >= mergedInterval.back()) {
                 mergedInterval = {mergedInterval.front(), interval.back()};
-            } else if (interval.front() >= mergedInterval.back() && interval.back() >= mergedInterval.back()) {
+            } else if (interval.front() >= mergedInterval.back() and interval.back() >= mergedInterval.back()) {
                 mergedIntervals.push_back(interval);
                 index++;
             }
