@@ -15,31 +15,34 @@ public:
         
         queue<int> traversalQueue;
         for (auto& entry : degree) {
-            if (entry.second == 1) traversalQueue.push(entry.first);
+            if (entry.second == 1) {
+                traversalQueue.push(entry.first);
+            }
         }
         
         while (n > 2) {
             int size = traversalQueue.size();
             n -= size;
             while (size) {
-                int currentEdge = traversalQueue.front();
+                int currentNode = traversalQueue.front();
                 traversalQueue.pop();
-                size--;
-                for (auto& adjacentEdge : adjacent[currentEdge]) {
-                    degree[adjacentEdge]--;
-                    if (degree[adjacentEdge] == 1) {
-                        traversalQueue.push(adjacentEdge);
+                degree[currentNode]--;
+                for (auto& adjacentNode : adjacent[currentNode]) {
+                    degree[adjacentNode]--;
+                    if (degree[adjacentNode] == 1) {
+                        traversalQueue.push(adjacentNode);
                     }
                 }
+                size--;
             }
         }
         
-        vector<int> minHeightTrees;
+        vector<int> minimumHeightTrees;
         while (!traversalQueue.empty()) {
-            minHeightTrees.push_back(traversalQueue.front());
+            minimumHeightTrees.push_back(traversalQueue.front());
             traversalQueue.pop();
         }
         
-        return minHeightTrees;
+        return minimumHeightTrees;
     }
 };
