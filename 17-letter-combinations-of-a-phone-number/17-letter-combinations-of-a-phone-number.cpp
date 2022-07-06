@@ -11,11 +11,17 @@ public:
         {'9', {"w", "x", "y", "z"}},
     };
     
+    /**
+    digits size = d
+    required size = r
+    
+    */
+    
     vector<string> letterCombinations(string digits) {
         if (digits.empty()) return {};
         
         vector<vector<string>> required;
-        for (auto& digit : digits) {
+        for (auto& digit : digits) { // O(d)
             required.push_back(digitToLetters[digit]);
         }
         
