@@ -13,16 +13,18 @@ public:
         
         int time = 0;
         queue<pair<int, int>> idleQueue;
-        while (!maxHeap.empty() || !idleQueue.empty()) {
+        while (!maxHeap.empty() or !idleQueue.empty()) {
             time++;
             if (!maxHeap.empty()) {
-                int task = maxHeap.top() - 1;
+                int task = maxHeap.top();
                 maxHeap.pop();
+                task--;
                 if (task) {
-                    idleQueue.push(make_pair(task, time + n));
+                    idleQueue.push({task, time + n});
                 }
             }
-            if (!idleQueue.empty() && idleQueue.front().second == time) {
+            
+            if (!idleQueue.empty() and idleQueue.front().second == time) {
                 maxHeap.push(idleQueue.front().first);
                 idleQueue.pop();
             }
