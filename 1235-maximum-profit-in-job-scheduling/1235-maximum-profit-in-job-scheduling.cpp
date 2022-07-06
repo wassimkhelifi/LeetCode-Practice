@@ -5,8 +5,8 @@ public:
         for (int i = 0; i < startTime.size(); i++) {
             jobs.push_back({endTime[i], startTime[i], profit[i]});
         }
-        sort(jobs.begin(), jobs.end());
         
+        sort(jobs.begin(), jobs.end());
         map<int, int> endTimeToProfit;
         endTimeToProfit[0] = 0;
         for (auto& job : jobs) {
