@@ -14,27 +14,25 @@ public:
     vector<string> letterCombinations(string digits) {
         if (digits.empty()) return {};
         
-        vector<vector<string>> requiredLetters;
+        vector<vector<string>> required;
         for (auto& digit : digits) {
-            requiredLetters.push_back(digitToLetters[digit]);
+            required.push_back(digitToLetters[digit]);
         }
         
-        vector<string> combinations = requiredLetters.front();
-        requiredLetters.erase(requiredLetters.begin());
-        if (requiredLetters.empty()) return combinations;
-        
-        for (auto& required : requiredLetters) {
-            combinations = combine(combinations, required);
+        vector<string> combinations = {required.front()};
+        required.erase(required.begin());
+        for (auto& requiredLetters : required) {
+            combinations = combine(combinations, requiredLetters);
         }
         
         return combinations;
     }
     
-    vector<string> combine(vector<string>& combinations, vector<string>& requiredLetters) {
+    vector<string> combine(vector<string>& combinations, vector<string>& required) {
         vector<string> newCombinations;
         for (auto& combination : combinations) {
-            for (auto& required : requiredLetters) {
-                newCombinations.push_back(combination + required);
+            for (auto& letter : required) {
+                newCombinations.push_back(combination + letter);
             }
         }
         
