@@ -1,27 +1,31 @@
 class Solution {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        if (numCourses == 0 || numCourses == 1) return true;
+        if (numCourses == 1) return true;
         
         map<int, vector<int>> adjacent;
         for (auto& prerequisite : prerequisites) {
             adjacent[prerequisite[0]].push_back(prerequisite[1]);
         }
         
-        vector<int> visited(numCourses, 0);
+        vector<int> visited(numCourses);
         for (int i = 0; i < numCourses; i++) {
-            if (hasCycle(i, visited, adjacent)) return false;
+            if (hasCycle(i, adjacent, visited)) {
+                return false;
+            }
         }
         
         return true;
     }
     
-    bool hasCycle(int course, vector<int>& visited, map<int, vector<int>>& adjacent) {
+    bool hasCycle(int course, map<int, vector<int>>& adjacent, vector<int>& visited) {
         if (visited[course] == 1) return true;
         else if (visited[course] == 0) {
             visited[course]++;
             for (auto& adjacentCourse : adjacent[course]) {
-                if (hasCycle(adjacentCourse, visited, adjacent)) return true;
+                if (hasCycle(adjacentCourse, adjacent, visited)) {
+                    return true;
+                }
             }
         }
         
