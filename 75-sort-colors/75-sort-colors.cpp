@@ -12,6 +12,6 @@ public:
             } else {
                 swap(nums[middle], nums[right--]);
             }
-        }
+        } 
     }
 };
