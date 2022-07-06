@@ -8,24 +8,23 @@ public:
     Node(int key, int val) {
         this -> key = key;
         this -> val = val;
-        this -> previous = NULL;
-        this -> next = NULL;
+        previous = NULL;
+        next = NULL;
     }
 };
 
 class LRUCache {
     map<int, Node*> cache;
-    int capacity;
     Node* LRU;
     Node* MRU;
-    
+    int capacity;
 public:
     LRUCache(int capacity) {
         this -> capacity = capacity;
-        this -> LRU = new Node(-1, -1);
-        this -> MRU = new Node(-1, -1);
-        this -> LRU -> next = this -> MRU;
-        this -> MRU -> previous = this -> LRU;
+        LRU = new Node(-1, -1);
+        MRU = new Node(-1, -1);
+        LRU -> next = MRU;
+        MRU -> previous = LRU;
     }
     
     int get(int key) {
@@ -47,20 +46,20 @@ public:
         cache[key] = newNode;
         insert(cache[key]);
         
-        if (cache.size() > this -> capacity) {
-            Node* leastRecentlyUsed = this -> LRU -> next;
+        if (cache.size() > capacity) {
+            Node* leastRecentlyUsed = LRU -> next;
             remove(leastRecentlyUsed);
             cache.erase(leastRecentlyUsed -> key);
         }
     }
     
     void insert(Node* node) {
-        Node* previous = this -> MRU -> previous;
-        Node* next = this -> MRU;
+        Node* previous = MRU -> previous;
+        Node* next = MRU;
         previous -> next = node;
         node -> previous = previous;
-        node -> next = this -> MRU;
-        this -> MRU -> previous = node;
+        node -> next = MRU;
+        MRU -> previous = node;
     }
     
     void remove(Node* node) {
